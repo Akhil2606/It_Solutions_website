@@ -1,0 +1,593 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#071426">
+    <title>Account Access | STACKLY</title>
+
+    <style>
+        :root {
+            --navy: #071426;
+            --blue: #2563eb;
+            --cyan: #38bdf8;
+            --text: #172033;
+            --muted: #718096;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            background: #fff;
+            color: var(--text);
+        }
+
+        .brand-panel {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            min-height: 100vh;
+            padding: 48px 8%;
+            color: #fff;
+            background:
+                radial-gradient(circle at 15% 80%, #123d71 0, transparent 38%),
+                radial-gradient(circle at 90% 15%, #164e86 0, transparent 34%),
+                linear-gradient(145deg, #071426, #0b2340 65%, #071426);
+        }
+
+        .brand-panel::before,
+        .brand-panel::after {
+            content: "";
+            position: absolute;
+            border: 1px solid rgba(125, 211, 252, .15);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .brand-panel::before {
+            width: 440px;
+            height: 440px;
+            right: -180px;
+            bottom: -90px;
+        }
+
+        .brand-panel::after {
+            width: 320px;
+            height: 320px;
+            right: -120px;
+            bottom: -30px;
+        }
+
+        .brand-logo {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            font-size: 25px;
+            font-weight: 850;
+            letter-spacing: 4px;
+            text-decoration: none;
+        }
+
+        .brand-logo span {
+            color: var(--cyan);
+        }
+
+        .brand-content {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            margin: 50px 0;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 24px;
+            padding: 9px 13px;
+            border: 1px solid rgba(125, 211, 252, .3);
+            border-radius: 30px;
+            background: rgba(56, 189, 248, .08);
+            color: #7dd3fc;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .brand-content h1 {
+            margin-bottom: 22px;
+            font-size: clamp(38px, 4.4vw, 62px);
+            line-height: 1.12;
+            letter-spacing: -2px;
+        }
+
+        .brand-content h1 span {
+            color: #60c8fa;
+        }
+
+        .brand-content p {
+            max-width: 420px;
+            color: #b7c7dc;
+            font-size: 16px;
+            line-height: 1.9;
+        }
+
+        .brand-footer {
+            position: relative;
+            z-index: 1;
+            color: #8da2bc;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .form-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 0;
+            padding: 50px 9%;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .mobile-logo {
+            display: none;
+            margin-bottom: 42px;
+            color: var(--navy);
+            font-size: 23px;
+            font-weight: 850;
+            letter-spacing: 3px;
+            text-decoration: none;
+        }
+
+        .mobile-logo span {
+            color: var(--blue);
+        }
+
+        .heading {
+            margin-bottom: 28px;
+        }
+
+        .heading h2 {
+            margin-bottom: 10px;
+            color: #101b30;
+            font-size: 32px;
+            letter-spacing: -1px;
+        }
+
+        .heading p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            margin-bottom: 28px;
+            padding: 5px;
+            border-radius: 11px;
+            background: #f1f5f9;
+        }
+
+        .tab {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .tab.active {
+            background: #fff;
+            color: #1d4ed8;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, .08);
+        }
+
+        .field {
+            margin-bottom: 19px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 8px;
+            color: #273449;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .field input {
+            width: 100%;
+            min-height: 49px;
+            padding: 13px 14px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            outline: none;
+            background: #fff;
+            color: var(--text);
+            font: inherit;
+            font-size: 14px;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .field input::placeholder {
+            color: #a0aec0;
+        }
+
+        .field input:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, .11);
+        }
+
+        .password-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .password-row a {
+            color: var(--blue);
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .password-row a:hover,
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .submit-button {
+            width: 100%;
+            min-height: 51px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(110deg, #2563eb, #087ec4);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 750;
+            cursor: pointer;
+            box-shadow: 0 7px 16px rgba(37, 99, 235, .19);
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 22px rgba(37, 99, 235, .25);
+        }
+
+        .submit-button:disabled {
+            cursor: not-allowed;
+            opacity: .7;
+            transform: none;
+        }
+
+        .message {
+            min-height: 22px;
+            margin-top: 14px;
+            font-size: 13px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #64748b;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .back-link span {
+            margin-right: 6px;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                grid-template-columns: .85fr 1.15fr;
+            }
+
+            .brand-panel {
+                padding: 38px 8%;
+            }
+
+            .form-panel {
+                padding: 40px 7%;
+            }
+
+            .brand-content h1 {
+                font-size: 42px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            body {
+                display: block;
+                background: #f8fafc;
+            }
+
+            .brand-panel {
+                display: none;
+            }
+
+            .form-panel {
+                min-height: 100vh;
+                padding: 36px 22px;
+            }
+
+            .auth-card {
+                max-width: 430px;
+                padding: 30px 24px;
+                border: 1px solid #edf0f5;
+                border-radius: 18px;
+                background: #fff;
+                box-shadow: 0 12px 38px rgba(15, 23, 42, .06);
+            }
+
+            .mobile-logo {
+                display: inline-block;
+                margin-bottom: 35px;
+            }
+
+            .heading h2 {
+                font-size: 29px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="brand-panel">
+        <a class="brand-logo" href="index.html">STACK<span>LY</span></a>
+
+        <div class="brand-content">
+            <span class="eyebrow">IT SOLUTIONS · BUILT AROUND YOU</span>
+            <h1>Technology that moves your business <span>forward.</span></h1>
+            <p>
+                Access your STACKLY account to stay connected with the
+                technology support and services that help your business grow.
+            </p>
+        </div>
+
+        <div class="brand-footer">
+            Reliable technology. Thoughtful support.<br>
+            © 2026 STACKLY IT. All rights reserved.
+        </div>
+    </aside>
+
+    <main class="form-panel">
+        <section class="auth-card">
+            <a class="mobile-logo" href="index.html">STACK<span>LY</span></a>
+
+            <div class="heading">
+                <h2 id="formTitle">Welcome back</h2>
+                <p id="formSubtitle">Enter your details to sign in to your account.</p>
+            </div>
+
+            <div class="tabs" role="tablist" aria-label="Account access">
+                <button class="tab active" id="signInTab" type="button"
+                        role="tab" aria-selected="true">Sign In</button>
+                <button class="tab" id="signUpTab" type="button"
+                        role="tab" aria-selected="false">Sign Up</button>
+            </div>
+
+            <form id="authForm">
+                <div class="field" id="usernameField" hidden>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username"
+                           placeholder="Choose a username"
+                           autocomplete="username" minlength="3" maxlength="40">
+                </div>
+
+                <div class="field">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" name="email"
+                           placeholder="you@example.com"
+                           autocomplete="email" required>
+                </div>
+
+                <div class="field">
+                    <div class="password-row">
+                        <label for="password">Password</label>
+                        <a href="#" id="forgotPassword">Forgot password?</a>
+                    </div>
+                    <input type="password" id="password" name="password"
+                           placeholder="Enter your password"
+                           autocomplete="current-password"
+                           minlength="8" maxlength="128" required>
+                </div>
+
+                <div class="field" id="confirmPasswordField" hidden>
+                    <label for="confirmPassword">Confirm password</label>
+                    <input type="password" id="confirmPassword"
+                           name="confirmPassword"
+                           placeholder="Re-enter your password"
+                           autocomplete="new-password"
+                           minlength="8" maxlength="128">
+                </div>
+
+                <button class="submit-button" id="submitButton" type="submit">
+                    Sign In to Your Account
+                </button>
+
+                <p class="message" id="message" role="status"
+                   aria-live="polite"></p>
+            </form>
+
+            <a class="back-link" href="index.html">
+                <span>←</span> Back to STACKLY homepage
+            </a>
+        </section>
+    </main>
+
+    <script>
+        const authForm = document.getElementById("authForm");
+        const signInTab = document.getElementById("signInTab");
+        const signUpTab = document.getElementById("signUpTab");
+        const usernameField = document.getElementById("usernameField");
+        const usernameInput = document.getElementById("username");
+        const confirmPasswordField = document.getElementById("confirmPasswordField");
+        const confirmPasswordInput = document.getElementById("confirmPassword");
+        const passwordInput = document.getElementById("password");
+        const forgotPassword = document.getElementById("forgotPassword");
+        const formTitle = document.getElementById("formTitle");
+        const formSubtitle = document.getElementById("formSubtitle");
+        const submitButton = document.getElementById("submitButton");
+        const message = document.getElementById("message");
+
+        const API_BASE_URL = "http://127.0.0.1:8000";
+        let currentMode = "signin";
+
+        function setMode(mode) {
+            currentMode = mode;
+            const isSignUp = mode === "signup";
+
+            signInTab.classList.toggle("active", !isSignUp);
+            signUpTab.classList.toggle("active", isSignUp);
+            signInTab.setAttribute("aria-selected", String(!isSignUp));
+            signUpTab.setAttribute("aria-selected", String(isSignUp));
+
+            usernameField.hidden = !isSignUp;
+            usernameInput.required = isSignUp;
+
+            confirmPasswordField.hidden = !isSignUp;
+            confirmPasswordInput.required = isSignUp;
+
+            forgotPassword.hidden = isSignUp;
+            passwordInput.autocomplete = isSignUp ? "new-password" : "current-password";
+
+            formTitle.textContent = isSignUp ? "Create your account" : "Welcome back";
+            formSubtitle.textContent = isSignUp
+                ? "Create your STACKLY account to get started."
+                : "Enter your details to sign in to your account.";
+
+            submitButton.textContent = isSignUp
+                ? "Create Account"
+                : "Sign In to Your Account";
+
+            message.textContent = "";
+            message.style.color = "#64748b";
+        }
+
+        signInTab.addEventListener("click", () => setMode("signin"));
+        signUpTab.addEventListener("click", () => setMode("signup"));
+
+        forgotPassword.addEventListener("click", (event) => {
+            event.preventDefault();
+            message.style.color = "#64748b";
+            message.textContent = "Password recovery is not available yet. Please contact STACKLY support.";
+        });
+
+        authForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const isSignUp = currentMode === "signup";
+
+            if (isSignUp && passwordInput.value !== confirmPasswordInput.value) {
+                message.style.color = "#dc2626";
+                message.textContent = "Passwords do not match. Please try again.";
+                confirmPasswordInput.focus();
+                return;
+            }
+
+            const payload = {
+                email: document.getElementById("email").value.trim(),
+                password: passwordInput.value
+            };
+
+            if (isSignUp) {
+                payload.username = usernameInput.value.trim();
+            }
+
+            submitButton.disabled = true;
+            submitButton.textContent = isSignUp ? "Creating account..." : "Signing in...";
+            message.style.color = "#64748b";
+            message.textContent = "Please wait...";
+
+            try {
+                const response = await fetch(
+                    `${API_BASE_URL}/auth/${isSignUp ? "register" : "login"}`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(payload)
+                    }
+                );
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    const detail = result.detail;
+
+                    throw new Error(
+                        Array.isArray(detail)
+                            ? detail.map((item) => item.msg).join(", ")
+                            : (detail || "Authentication failed. Please try again.")
+                    );
+                }
+
+                localStorage.setItem("stacklyToken", result.access_token);
+                localStorage.setItem("stacklyUsername", result.username);
+                localStorage.setItem("stacklyEmail", result.email);
+
+                message.style.color = "#15803d";
+                message.textContent = isSignUp
+                    ? "Account created successfully. Redirecting..."
+                    : "Login successful. Redirecting...";
+
+                window.setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 700);
+            } catch (error) {
+                message.style.color = "#dc2626";
+
+                if (error instanceof TypeError) {
+                    message.textContent =
+                        "Cannot connect to the server. Make sure FastAPI is running and CORS is configured.";
+                } else {
+                    message.textContent = error.message;
+                }
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = isSignUp
+                    ? "Create Account"
+                    : "Sign In to Your Account";
+            }
+        });
+    </script>
+</body>
+</html>

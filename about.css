@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+body.about-page {
+  background: #061421;
+  color: #e6f0f6;
+  font-family: "DM Sans", "Segoe UI", sans-serif;
+}
+
+body.about-page header.home-header {
+  background: rgba(5, 20, 34, .91);
+  border-bottom-color: rgba(139, 203, 231, .16);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .2);
+}
+body.about-page header.home-header::before {
+  background-image: radial-gradient(ellipse at 78% 0%, rgba(33, 131, 165, .2), transparent 42%);
+  animation: aboutHeaderGlow 14s ease-in-out infinite alternate;
+}
+body.about-page header.home-header .logo img { filter: brightness(0) invert(1); }
+body.about-page header.home-header nav a,
+body.about-page header.home-header nav a.active { color: #d9e7ee; }
+body.about-page header.home-header nav a.active,
+body.about-page header.home-header nav a:hover { color: #fff; background: rgba(88, 171, 203, .16); }
+body.about-page header.home-header nav a::after { background: #55d0db; }
+body.about-page header.home-header.scrolled { background: rgba(4, 16, 28, .98); }
+
+body.about-page main.wrap {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 max(24px, calc((100vw - 1240px) / 2)) 82px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 5% 42%, rgba(17, 91, 121, .15), transparent 36%),
+    linear-gradient(180deg, #081b2b, #061421 72%);
+}
+
+body.about-page .page-title {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: 340px;
+  place-items: center;
+  width: 100vw;
+  margin: -100px 0 80px calc(50% - 50vw);
+  padding: 100px 24px 0;
+  overflow: hidden;
+  background-image:
+    linear-gradient(100deg, rgba(3, 16, 29, .84), rgba(5, 25, 41, .59) 52%, rgba(3, 15, 27, .78)),
+    url("team-collaboration.jpg");
+  background-position: center, center 45%;
+  background-size: cover, 105% auto;
+  color: #f5fbff;
+  font: 700 clamp(34px, 4vw, 52px)/1.1 "Space Grotesk", sans-serif;
+  letter-spacing: .025em;
+  text-shadow: 0 5px 24px rgba(0, 0, 0, .38);
+  animation: aboutImageDrift 24s ease-in-out infinite alternate;
+}
+body.about-page .page-title::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .21;
+  background-image: linear-gradient(rgba(134, 206, 230, .11) 1px, transparent 1px), linear-gradient(90deg, rgba(134, 206, 230, .11) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, #000, transparent 78%);
+  animation: aboutGridShift 32s linear infinite;
+}
+
+body.about-page .story {
+  display: grid;
+  gap: 28px;
+  margin: 0 auto 104px;
+  padding: 0;
+}
+body.about-page .story article {
+  position: relative;
+  min-height: 250px;
+  margin: 0;
+  padding: 30px;
+  grid-template-columns: minmax(150px, .38fr) minmax(0, 1.7fr) minmax(220px, .76fr);
+  gap: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(155, 205, 226, .15);
+  border-radius: 18px;
+  background: linear-gradient(115deg, rgba(15, 43, 62, .97), rgba(9, 30, 47, .94));
+  box-shadow: 0 18px 44px rgba(0, 0, 0, .18), inset 0 1px 0 rgba(255,255,255,.035);
+  animation: aboutReveal 700ms cubic-bezier(.2,.8,.2,1) both;
+}
+body.about-page .story article:nth-child(2) { animation-delay: 130ms; }
+body.about-page .story article::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #37b8d0 32%, #81e4dc 72%, transparent);
+  opacity: .76;
+}
+body.about-page .story h2 {
+  align-self: start;
+  margin: 4px 0 0;
+  color: #9ce5ea;
+  font: 650 25px/1.25 "Space Grotesk", sans-serif;
+  letter-spacing: -.03em;
+}
+body.about-page .story p {
+  color: #d4e2e9;
+  font: 500 16px/1.8 "DM Sans", sans-serif;
+}
+body.about-page .story .story-photo {
+  height: 190px;
+  border: 1px solid rgba(193, 226, 239, .22);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.24);
+  transition: transform 400ms ease, filter 400ms ease;
+}
+body.about-page .story article:hover .story-photo { transform: scale(1.035); filter: saturate(1.1); }
+
+body.about-page .achievements { max-width: 1080px; margin: 0 auto; }
+body.about-page .achievements h2 {
+  margin: 0 0 42px;
+  color: #f0f7fa;
+  font: 700 clamp(28px, 3vw, 38px)/1.2 "Space Grotesk", sans-serif;
+  letter-spacing: -.035em;
+}
+body.about-page .stats { gap: 24px; }
+body.about-page .achievements .stat {
+  position: relative;
+  height: 176px;
+  border: 1px solid rgba(177, 214, 230, .23);
+  border-radius: 16px;
+  background-size: cover;
+  box-shadow: 0 15px 35px rgba(0,0,0,.2);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  animation: aboutReveal 650ms cubic-bezier(.2,.8,.2,1) both;
+}
+body.about-page .achievements .stat:nth-child(2) { animation-delay: 70ms; }
+body.about-page .achievements .stat:nth-child(3) { animation-delay: 140ms; }
+body.about-page .achievements .stat:nth-child(4) { animation-delay: 210ms; }
+body.about-page .achievements .stat:nth-child(5) { animation-delay: 280ms; }
+body.about-page .achievements .stat:hover { transform: translateY(-5px); border-color: rgba(104, 217, 224, .56); box-shadow: 0 20px 42px rgba(0,0,0,.28); }
+body.about-page .achievements .stat:nth-child(1) { background-image: linear-gradient(rgba(5,20,34,.78),rgba(5,20,34,.86)),url("repair-team.jpg"); }
+body.about-page .achievements .stat:nth-child(2) { background-image: linear-gradient(rgba(5,20,34,.78),rgba(5,20,34,.86)),url("server-room.jpg"); }
+body.about-page .achievements .stat:nth-child(3) { background-image: linear-gradient(rgba(5,20,34,.78),rgba(5,20,34,.86)),url("team-collaboration.jpg"); }
+body.about-page .achievements .stat:nth-child(4) { background-image: linear-gradient(rgba(5,20,34,.78),rgba(5,20,34,.86)),url("office-technology.jpg"); }
+body.about-page .achievements .stat:nth-child(5) { background-image: linear-gradient(rgba(5,20,34,.78),rgba(5,20,34,.86)),url("hero-coding.jpg"); }
+body.about-page .stat strong { color: #a4eef0; font: 700 38px/1 "Space Grotesk", sans-serif; }
+body.about-page .stat span { color: #e0eaf0; font: 600 16px/1.5 "DM Sans", sans-serif; }
+
+body.about-page .about-cta {
+  position: relative;
+  max-width: 1080px;
+  margin: 96px auto 0;
+  padding: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(157, 209, 228, .2);
+  border-radius: 18px;
+  background: linear-gradient(110deg, rgba(5,20,34,.9), rgba(7,30,47,.76)), url("office-technology.jpg") center 45%/cover;
+  box-shadow: 0 18px 44px rgba(0,0,0,.2);
+  text-align: left;
+}
+body.about-page .about-cta h2 { color: #f2f8fb; font: 650 24px/1.4 "Space Grotesk", sans-serif; }
+body.about-page .about-cta a {
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  line-height: 1.2;
+  margin: 12px 0 0;
+  padding: 14px 20px;
+  border: 1px solid rgba(174, 238, 242, .55);
+  border-radius: 9px;
+  background: linear-gradient(110deg, #27a5c3, #54d0d0);
+  color: #052132;
+  font: 700 15px "Space Grotesk", sans-serif;
+  box-shadow: 0 9px 22px rgba(28, 174, 197, .22);
+  transition: transform 180ms ease, filter 180ms ease;
+}
+body.about-page .about-cta a:hover { transform: translateY(-2px); filter: brightness(1.08); }
+body.about-page .about-cta-photo { display: none; }
+
+@keyframes aboutHeaderGlow { from { opacity: .55; } to { opacity: 1; } }
+@keyframes aboutImageDrift { from { background-position: center, center 43%; } to { background-position: center, center 58%; } }
+@keyframes aboutGridShift { to { background-position: 48px 48px, -48px 48px; } }
+@keyframes aboutReveal { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 800px) {
+  body.about-page main.wrap { padding-inline: 24px; }
+  body.about-page .page-title { min-height: 290px; margin-top: -84px; margin-bottom: 48px; padding-top: 84px; }
+  body.about-page .story { gap: 20px; margin-bottom: 70px; }
+  body.about-page .story article { grid-template-columns: minmax(120px, .45fr) minmax(0, 1fr); padding: 22px; gap: 16px; }
+  body.about-page .story h2 { font-size: 22px; }
+  body.about-page .story p { font-size: 15px; }
+  body.about-page .story .story-photo { grid-column: 2; height: 150px; }
+  body.about-page .stats { gap: 16px; }
+  body.about-page .achievements .stat { height: 145px; }
+  body.about-page .about-cta { margin-top: 68px; }
+}
+@media (max-width: 520px) {
+  body.about-page main.wrap { padding: 0 18px 54px; }
+  body.about-page .page-title { min-height: 245px; margin-top: -115px; margin-bottom: 32px; padding-top: 115px; }
+  body.about-page .story { margin-bottom: 54px; }
+  body.about-page .story article { grid-template-columns: 1fr; padding: 19px; }
+  body.about-page .story h2 { margin: 0; font-size: 23px; }
+  body.about-page .story p { font-size: 14px; line-height: 1.75; }
+  body.about-page .story .story-photo { grid-column: 1; height: 180px; }
+  body.about-page .achievements h2 { margin-bottom: 24px; }
+  body.about-page .stats { grid-template-columns: 1fr; gap: 14px; }
+  body.about-page .achievements .stat,
+  body.about-page .stat:last-child { grid-column: auto; width: 100%; height: 125px; }
+  body.about-page .about-cta { margin-top: 52px; padding: 20px; }
+  body.about-page .about-cta h2 { font-size: 21px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.about-page header.home-header::before,
+  body.about-page .page-title,
+  body.about-page .page-title::after,
+  body.about-page .story article,
+  body.about-page .achievements .stat { animation: none; }
+  body.about-page .story .story-photo,
+  body.about-page .achievements .stat,
+  body.about-page .about-cta a { transition: none; }
+}

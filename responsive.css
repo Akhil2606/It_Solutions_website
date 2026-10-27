@@ -1,0 +1,51 @@
+/* Shared small-screen refinements applied after each page's own styles. */
+@media (max-width: 800px) {
+  html, body { overflow-x: clip; }
+  header.home-header { padding-inline: 20px; }
+  header.home-header .logo { left: 0; }
+  footer.wrap .footer-main { min-width: 0; }
+  footer.wrap .footer-main > *,
+  footer.wrap .links,
+  footer.wrap .subscribe { min-width: 0; }
+  footer.wrap .subscribe input,
+  footer.wrap .subscribe button { box-sizing: border-box; }
+  body.home-page::before { height: 740px; }
+}
+
+@media (max-width: 520px) {
+  body { padding-top: 120px !important; }
+  header.home-header {
+    gap: 8px;
+    padding: 10px 18px;
+  }
+  header.home-header .logo { width: 122px !important; height: 49px !important; }
+  header.home-header .signup { padding: 7px 11px; font-size: 12px; }
+  header.home-header nav { gap: 4px; }
+  header.home-header nav a { padding: 6px 4px; font-size: 11px; }
+
+  body.home-page::before { height: 740px; }
+  body.services-page .title { margin-top: -120px; padding-top: 120px; }
+  body.about-page .page-title { margin-top: -120px; padding-top: 120px; }
+  body.enquiry-page .title { margin-top: -120px; padding-top: 120px; }
+  body.confirmation-page .success { margin-top: -120px; padding-top: 150px; }
+
+  footer.wrap { padding-inline: 18px; }
+  footer.wrap .footer-main { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  footer.wrap .footer-main > :first-child,
+  footer.wrap .subscribe { grid-column: 1 / -1; }
+  footer.wrap .footer-logo { width: min(210px, 100%) !important; }
+  footer.wrap .legal { align-items: flex-start; flex-direction: column; gap: 12px; }
+}
+
+@media (max-width: 360px) {
+  header.home-header { padding-inline: 12px; }
+  header.home-header .logo { width: 108px !important; height: 44px !important; }
+  header.home-header nav { gap: 1px; }
+  header.home-header nav a { padding-inline: 3px; font-size: 10px; }
+  header.home-header .signup { padding: 6px 8px; font-size: 11px; }
+  footer.wrap { padding-inline: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; }
+}

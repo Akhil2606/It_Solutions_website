@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+body.confirmation-page { background: #061421; color: #e6f0f6; font-family: "DM Sans", "Segoe UI", sans-serif; }
+body.confirmation-page header.home-header {
+  background: rgba(5, 20, 34, .88);
+  border-bottom-color: rgba(139, 203, 231, .16);
+  box-shadow: 0 10px 28px rgba(0,0,0,.2);
+}
+body.confirmation-page header.home-header::before { background-image: radial-gradient(ellipse at 78% 0%, rgba(33,131,165,.2), transparent 42%); }
+body.confirmation-page header.home-header .logo img { filter: brightness(0) invert(1); }
+body.confirmation-page header.home-header nav a,
+body.confirmation-page header.home-header nav a.active { color: #d9e7ee; }
+body.confirmation-page header.home-header nav a.active,
+body.confirmation-page header.home-header nav a:hover { color: #fff; background: rgba(88,171,203,.16); }
+body.confirmation-page header.home-header nav a::after { background: #55d0db; }
+
+body.confirmation-page main.wrap {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 max(24px, calc((100vw - 1200px) / 2)) 76px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 15%, rgba(24,96,124,.18), transparent 45%), #071827;
+}
+body.confirmation-page .success {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 650px;
+  width: 100vw;
+  margin: -100px 0 0 calc(50% - 50vw);
+  padding: 150px 24px 60px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-image: linear-gradient(100deg, rgba(3,16,29,.9), rgba(5,25,41,.72) 52%, rgba(3,15,27,.88)), url("repair-team.jpg");
+  background-position: center, center 42%;
+  background-size: cover, 105% auto;
+  animation: confirmationImageDrift 24s ease-in-out infinite alternate;
+}
+body.confirmation-page .success::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .2;
+  background-image: linear-gradient(rgba(134,206,230,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(134,206,230,.12) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, #000, transparent 78%);
+  animation: confirmationGrid 30s linear infinite;
+}
+body.confirmation-page .check {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 24px;
+  background: linear-gradient(135deg, #1683a2, #25b7bb);
+  box-shadow: 0 0 0 10px rgba(57,190,205,.1), 0 12px 30px rgba(0,0,0,.24);
+  animation: confirmationPop 650ms cubic-bezier(.2,.8,.2,1) both;
+}
+body.confirmation-page .check:after { left: 20px; top: 17px; width: 35px; height: 21px; }
+body.confirmation-page .success h1 {
+  max-width: 900px;
+  margin: 0 0 22px;
+  color: #f6fbff;
+  font: 700 clamp(32px, 4.4vw, 54px)/1.12 "Space Grotesk", sans-serif;
+  letter-spacing: -.035em;
+  animation: confirmationRise 700ms 100ms both;
+}
+body.confirmation-page .success p {
+  color: #d0e0e8;
+  font: 500 16px/1.7 "DM Sans", sans-serif;
+  animation: confirmationRise 700ms 180ms both;
+}
+body.confirmation-page .reference {
+  width: min(560px, 100%);
+  min-height: 112px;
+  height: auto;
+  margin-top: 32px;
+  padding: 18px;
+  gap: 12px;
+  border: 1px solid rgba(163,212,230,.2);
+  border-radius: 12px;
+  background: rgba(8,29,45,.78);
+  box-shadow: 0 14px 34px rgba(0,0,0,.19);
+  backdrop-filter: blur(8px);
+  animation: confirmationRise 700ms 260ms both;
+}
+body.confirmation-page .reference strong { color: #a8d8e5; font: 600 14px "Space Grotesk", sans-serif; }
+body.confirmation-page .reference-row { color: #f2f9fb; }
+body.confirmation-page .reference-row b { font: 700 22px "Space Grotesk", sans-serif; letter-spacing: .04em; }
+body.confirmation-page .copy { color: #a9e9ed; }
+body.confirmation-page .copy-note { color: #9cbbc8; }
+
+body.confirmation-page .followup { max-width: 1100px; margin: 76px auto 0; text-align: center; }
+body.confirmation-page .followup>h2 { margin-bottom: 18px; color: #eff7fa; font: 700 28px "Space Grotesk", sans-serif; }
+body.confirmation-page .followup h3 { margin-bottom: 12px; color: #9ee4e9; font: 650 21px "Space Grotesk", sans-serif; }
+body.confirmation-page .followup .summary { margin-bottom: 44px; color: #aec2cd; font: 500 15px "DM Sans", sans-serif; }
+body.confirmation-page .steps { gap: 20px; }
+body.confirmation-page .step {
+  padding: 14px 14px 20px;
+  border: 1px solid rgba(158,205,226,.16);
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(15,43,62,.9), rgba(8,28,44,.94));
+  box-shadow: 0 14px 32px rgba(0,0,0,.16);
+  animation: confirmationRise 650ms cubic-bezier(.2,.8,.2,1) both;
+  transition: transform 200ms ease, border-color 200ms ease;
+}
+body.confirmation-page .step:nth-child(2) { animation-delay: 100ms; }
+body.confirmation-page .step:nth-child(3) { animation-delay: 200ms; }
+body.confirmation-page .step:hover { transform: translateY(-4px); border-color: rgba(89,205,220,.43); }
+body.confirmation-page .step-photo { height: 138px; margin: 0 0 18px; border-radius: 9px; filter: saturate(.86); }
+body.confirmation-page .step .circle {
+  width: 52px; height: 52px; margin-bottom: 17px;
+  border: 1px solid rgba(106,213,222,.56);
+  background: linear-gradient(135deg,#123d56,#0c293f);
+  color: #b5f0ef; font: 700 20px "Space Grotesk",sans-serif;
+  box-shadow: 0 0 0 5px rgba(53,161,185,.08);
+}
+body.confirmation-page .step h4 { margin: 0 0 10px; color: #f0f7fa; font: 650 16px/1.4 "Space Grotesk",sans-serif; }
+body.confirmation-page .step p { color: #adc0cb; font: 500 13px/1.65 "DM Sans",sans-serif; }
+body.confirmation-page .contact-note {
+  max-width: 760px; min-height: 88px; margin: 42px auto 0;
+  border: 1px solid rgba(158,205,226,.16); border-radius: 12px;
+  background: linear-gradient(120deg,rgba(12,43,62,.92),rgba(7,27,43,.92)), url("server-room.jpg") center/cover;
+  color: #d4e3e9;
+}
+body.confirmation-page .note-icon { border-color: #7cd8e2; }
+body.confirmation-page .note-icon:before { border-color: #7cd8e2; }
+body.confirmation-page .contact-note h4 { color: #a5dfe8; font: 600 14px "Space Grotesk",sans-serif; }
+body.confirmation-page .contact-note p { color: #b8cbd4; font: 500 12px "DM Sans",sans-serif; }
+
+@keyframes confirmationImageDrift { from { background-position: center, center 40%; } to { background-position: center, center 58%; } }
+@keyframes confirmationGrid { to { background-position: 48px 48px, -48px 48px; } }
+@keyframes confirmationRise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes confirmationPop { from { opacity: 0; transform: scale(.82); } to { opacity: 1; transform: scale(1); } }
+
+@media (max-width: 800px) {
+  body.confirmation-page main.wrap { padding-inline: 24px; }
+  body.confirmation-page .success { min-height: 590px; padding: 125px 24px 48px; }
+  body.confirmation-page .followup { margin-top: 55px; }
+  body.confirmation-page .steps { gap: 12px; }
+  body.confirmation-page .step { padding: 10px; }
+  body.confirmation-page .step-photo { height: 105px; }
+}
+@media (max-width: 520px) {
+  body.confirmation-page main.wrap { padding: 0 18px 54px; }
+  body.confirmation-page .success { min-height: 540px; margin-top: -115px; padding: 145px 18px 38px; }
+  body.confirmation-page .success h1 { font-size: 30px; }
+  body.confirmation-page .success p { font-size: 14px; }
+  body.confirmation-page .reference { margin-top: 25px; }
+  body.confirmation-page .followup { margin-top: 45px; }
+  body.confirmation-page .followup>h2 { font-size: 24px; }
+  body.confirmation-page .followup h3 { font-size: 18px; }
+  body.confirmation-page .followup .summary { margin-bottom: 30px; font-size: 14px; }
+  body.confirmation-page .steps { grid-template-columns: 1fr; gap: 14px; }
+  body.confirmation-page .step { padding: 12px; }
+  body.confirmation-page .step-photo { height: 165px; }
+  body.confirmation-page .contact-note { margin-top: 28px; padding: 12px; gap: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.confirmation-page .success,
+  body.confirmation-page .success::before,
+  body.confirmation-page .check,
+  body.confirmation-page .success h1,
+  body.confirmation-page .success p,
+  body.confirmation-page .reference,
+  body.confirmation-page .step { animation: none; }
+  body.confirmation-page .step { transition: none; }
+}

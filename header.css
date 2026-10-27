@@ -1,0 +1,423 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+/* Shared fixed header styling for every page. */
+header.home-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding-inline: clamp(20px, 3.2vw, 48px);
+  transform: none;
+  isolation: isolate;
+  overflow: visible;
+  background: rgba(255, 255, 255, 0.84);
+  border-bottom: 1px solid rgba(125, 177, 207, 0.22);
+  border-radius: 0;
+  box-shadow: 0 8px 28px rgba(47, 82, 105, 0.09);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font-family: "Manrope", "Segoe UI", system-ui, sans-serif;
+  animation: headerEnter 500ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+header.home-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image:
+    radial-gradient(ellipse at 8% 5%, rgba(184, 221, 243, 0.44), transparent 38%),
+    radial-gradient(ellipse at 88% 0%, rgba(216, 239, 250, 0.58), transparent 34%),
+    linear-gradient(105deg, rgba(255,255,255,.64), rgba(244,250,254,.54), rgba(255,255,255,.72));
+  background-size: 150% 150%;
+  background-position: 0% 50%;
+  animation: headerGlow 18s ease-in-out infinite alternate;
+}
+
+header.home-header .logo {
+  left: -20px;
+  transition: transform 180ms ease;
+}
+
+header.home-header .logo:hover { transform: scale(1.025); }
+
+header.home-header nav {
+  transform: translateX(16px);
+  gap: clamp(24px, 5.2vw, 76px);
+}
+
+header.home-header nav a {
+  position: relative;
+  padding: 11px 13px;
+  border-radius: 12px;
+  color: #63717b;
+  font-family: "Manrope", "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+header.home-header nav a::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  left: 13px;
+  right: 13px;
+  bottom: 5px;
+  border-radius: 2px;
+  background: #58a9d6;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1);
+}
+
+header.home-header nav a:hover::after,
+header.home-header nav a.active::after { transform: scaleX(1); }
+
+header.home-header nav a:hover {
+  color: #183b52;
+  background: rgba(184, 221, 243, 0.25);
+  transform: translateY(-1px);
+}
+
+header.home-header nav a.active {
+  color: #183b52;
+  background: rgba(184, 221, 243, 0.36);
+}
+
+header.home-header nav a:focus-visible,
+header.home-header .signup:focus-visible,
+header.home-header .logo:focus-visible {
+  outline: 2px solid #77bce3;
+  outline-offset: 3px;
+}
+
+header.home-header .signup {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  padding: 12px 22px;
+  background: linear-gradient(135deg, #9bd5f5, #75bee8);
+  color: #12364d;
+  font: 700 15px "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  box-shadow: 0 5px 14px rgba(79, 157, 202, 0.22);
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+header.home-header .signup::before {
+  content: "";
+  position: absolute;
+  inset: -35% auto -35% -45%;
+  width: 38%;
+  transform: skewX(-22deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.7), transparent);
+  animation: buttonShimmer 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+header.home-header .signup:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(79, 157, 202, 0.30);
+  filter: saturate(1.08);
+}
+
+@keyframes headerGlow {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+@keyframes headerEnter {
+  from { opacity: 0; filter: blur(5px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+@keyframes buttonShimmer {
+  0%, 58% { left: -45%; }
+  82%, 100% { left: 125%; }
+}
+
+@media (max-width: 800px) {
+  header.home-header nav { gap: 12px; }
+  header.home-header nav a { padding: 9px 8px; font-size: 14px; }
+  header.home-header .signup { padding: 9px 14px; font-size: 12px; }
+}
+
+@media (max-width: 480px) {
+  header.home-header { padding-inline: 18px; }
+  header.home-header .logo { left: 0; }
+  header.home-header nav { transform: none; gap: 8px; }
+  header.home-header nav a { padding: 8px 7px; font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  header.home-header::before { animation: none; }
+  header.home-header,
+  header.home-header::before,
+  header.home-header .logo,
+  header.home-header nav a,
+  header.home-header nav a::after,
+  header.home-header .signup,
+  header.home-header .signup::before { animation: none; transition: none; }
+}
+
+/* Photography used through the service, story, enquiry, and confirmation pages.
+   Unsplash License: Ricardo IV Tamayo (nApaD08bFAE), Taylor Vick (aWslrFhs1w4),
+   Creatopy (otxg1OvPLZw), and Invest Europe (5rAJrrjs9io). */
+main.wrap .card-head .service-photo {
+  width: 118px;
+  height: 78px;
+  flex: none;
+  margin-top: 1px;
+  border-radius: 9px;
+  object-fit: cover;
+}
+
+main.wrap .story article {
+  display: grid;
+  grid-template-columns: minmax(160px, .42fr) minmax(0, 1.5fr) minmax(210px, .72fr);
+  align-items: center;
+  gap: 20px;
+}
+
+main.wrap .story h2 { margin: 0; }
+main.wrap .story p { margin-left: 0; font-size: clamp(16px, 1.45vw, 20px); }
+main.wrap .story .story-photo { width: 100%; height: 180px; display: block; border-radius: 12px; object-fit: cover; box-shadow: 0 12px 28px rgba(31,58,78,.12); }
+
+main.wrap .achievements .stat {
+  background-color: #fff;
+  background-position: center;
+  background-size: cover;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(31,58,78,.08);
+}
+
+main.wrap .achievements .stat:nth-child(1) { background-image: linear-gradient(rgba(255,255,255,.88),rgba(255,255,255,.88)),url("repair-team.jpg"); }
+main.wrap .achievements .stat:nth-child(2) { background-image: linear-gradient(rgba(255,255,255,.88),rgba(255,255,255,.88)),url("server-room.jpg"); }
+main.wrap .achievements .stat:nth-child(3) { background-image: linear-gradient(rgba(255,255,255,.88),rgba(255,255,255,.88)),url("team-collaboration.jpg"); }
+main.wrap .achievements .stat:nth-child(4) { background-image: linear-gradient(rgba(255,255,255,.88),rgba(255,255,255,.88)),url("office-technology.jpg"); }
+main.wrap .achievements .stat:nth-child(5) { background-image: linear-gradient(rgba(255,255,255,.88),rgba(255,255,255,.88)),url("hero-coding.jpg"); }
+
+main.wrap .about-cta-photo { width: min(34%, 330px); height: 150px; object-fit: cover; border-radius: 12px; }
+main.wrap .about-cta { display: flex; align-items: center; justify-content: space-between; gap: 30px; text-align: right; }
+main.wrap .about-cta > div { flex: 1; }
+
+main.wrap .reply-photo { width: 88px; height: 54px; object-fit: cover; border-radius: 8px; }
+main.wrap .step-photo { width: 100%; height: 128px; display: block; margin: 0 0 18px; object-fit: cover; border-radius: 11px; box-shadow: 0 10px 24px rgba(31,58,78,.10); }
+main.wrap .contact-note .note-photo { width: 104px; height: 62px; flex: none; border-radius: 8px; object-fit: cover; }
+
+@media (max-width: 800px) {
+  main.wrap .story article { grid-template-columns: 150px minmax(0, 1fr); }
+  main.wrap .story .story-photo { grid-column: 2; height: 150px; }
+  main.wrap .about-cta-photo { width: 34%; height: 125px; }
+  main.wrap .step-photo { height: 100px; }
+}
+
+@media (max-width: 520px) {
+  main.wrap .card-head .service-photo { width: 84px; height: 68px; }
+  main.wrap .story article { grid-template-columns: 1fr; gap: 12px; }
+  main.wrap .story .story-photo { grid-column: 1; height: 180px; }
+  main.wrap .about-cta-photo { width: 100%; height: 145px; }
+  main.wrap .about-cta { align-items: stretch; flex-direction: column; text-align: left; }
+  main.wrap .step-photo { height: 170px; }
+  main.wrap .reply-photo { width: 64px; height: 46px; }
+  main.wrap .contact-note .note-photo { width: 76px; height: 56px; }
+}
+
+/* The home header starts over the hero photograph, then becomes a solid bar. */
+body.home-page header.home-header {
+  background: rgba(4, 17, 35, .18);
+  border-bottom-color: rgba(220, 241, 255, .16);
+  box-shadow: 0 5px 22px rgba(0, 0, 0, .12);
+  transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+body.home-page header.home-header::before {
+  background: none;
+  animation: none;
+}
+
+body.home-page header.home-header .logo img {
+  filter: brightness(0) invert(1);
+  transition: filter 220ms ease;
+}
+
+body.home-page header.home-header nav a,
+body.home-page header.home-header nav a.active {
+  color: #f2f8fc;
+}
+
+body.home-page header.home-header nav a.active,
+body.home-page header.home-header nav a:hover {
+  background: rgba(213, 237, 251, .15);
+}
+
+body.home-page header.home-header nav a:hover { color: #fff; }
+body.home-page header.home-header nav a::after { background: #a8dcf7; }
+
+body.home-page header.home-header.scrolled {
+  background: rgba(5, 19, 37, .97);
+  border-bottom-color: rgba(140, 193, 223, .2);
+  box-shadow: 0 7px 24px rgba(0, 0, 0, .22);
+}
+
+body.home-page header.home-header.scrolled .logo img {
+  filter: brightness(0) invert(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.home-page header.home-header,
+  body.home-page header.home-header .logo img { transition: none; }
+}
+
+/* Clean, responsive footer shared across the site. */
+footer.wrap {
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  margin: 0;
+  padding: 52px max(24px, calc((100vw - 1200px) / 2)) 22px;
+  background: #f8fafc;
+  border-top: 1px solid #dce5ec;
+  color: #334b5d;
+  font-family: "Manrope", "Segoe UI", system-ui, sans-serif;
+}
+
+footer.wrap .footer-main {
+  grid-template-columns: minmax(0, 1.05fr) minmax(150px, .72fr) minmax(250px, 1.1fr);
+  gap: clamp(28px, 5vw, 76px);
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 0 38px;
+}
+
+footer.wrap .footer-logo {
+  width: min(240px, 100%) !important;
+  height: auto !important;
+  aspect-ratio: 2.3 / 1;
+  margin: 0;
+  background: transparent !important;
+}
+
+footer.wrap .footer-logo img { object-fit: contain; object-position: left center; }
+
+footer.wrap .social {
+  gap: 12px;
+  margin-top: 22px;
+}
+
+footer.wrap .social b,
+footer.wrap .social .circleicon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d5e0e8;
+  border-radius: 50%;
+  background: #fff;
+  color: #173f5c;
+  font-size: 21px;
+  line-height: 1;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+footer.wrap .social b { font-family: Arial, sans-serif; }
+footer.wrap .social .circleicon { font-size: 22px; }
+footer.wrap .social b:hover,
+footer.wrap .social .circleicon:hover { background: #173f5c; color: #fff; transform: translateY(-2px); }
+
+footer.wrap .links h2,
+footer.wrap .links h3,
+footer.wrap .subscribe h2,
+footer.wrap .subscribe h3 {
+  margin: 2px 0 14px;
+  color: #213c50;
+  font: 750 15px/1.4 "Manrope", "Segoe UI", system-ui, sans-serif;
+  letter-spacing: .035em;
+}
+
+footer.wrap .links a {
+  width: fit-content;
+  color: #637786;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.9;
+  transition: color 160ms ease, transform 160ms ease;
+}
+
+footer.wrap .links a:hover { color: #1676a6; transform: translateX(3px); }
+
+footer.wrap .subscribe { padding-top: 0; }
+footer.wrap .subscribe input {
+  width: 100%;
+  height: 48px;
+  margin: 2px 0 10px;
+  padding: 0 14px;
+  border: 1px solid #cbd8e1;
+  border-radius: 7px;
+  background: #fff;
+  text-align: left;
+  color: #233c50;
+  font: 600 14px "Manrope", "Segoe UI", system-ui, sans-serif;
+}
+
+footer.wrap .subscribe input:focus { outline: 2px solid #8fc9e8; outline-offset: 2px; }
+footer.wrap .subscribe input::placeholder { color: #8a9aa5; }
+
+footer.wrap .subscribe button {
+  height: 46px;
+  border-radius: 7px;
+  background: #1c5c80;
+  color: #fff;
+  font: 700 14px "Manrope", "Segoe UI", system-ui, sans-serif;
+  cursor: pointer;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+footer.wrap .subscribe button:hover { background: #124766; transform: translateY(-1px); }
+
+footer.wrap .legal {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 18px;
+  border-top: 1px solid #dce5ec;
+  color: #7d8b95;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+footer.wrap .legal-links { gap: 20px; }
+footer.wrap .legal-links span { transition: color 160ms ease; }
+footer.wrap .legal-links span:hover { color: #1676a6; }
+
+@media (max-width: 800px) {
+  footer.wrap { margin-top: 0; padding: 38px 24px 18px; }
+  footer.wrap .footer-main { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; padding-bottom: 28px; }
+  footer.wrap .subscribe { grid-column: 1 / -1; max-width: 480px; }
+}
+
+@media (max-width: 520px) {
+  footer.wrap { margin-top: 0; padding: 32px 20px 18px; }
+  footer.wrap .footer-main { grid-template-columns: 1fr 1fr; gap: 28px 18px; }
+  footer.wrap .footer-main > :first-child { grid-column: 1 / -1; }
+  footer.wrap .footer-logo { width: min(210px, 100%) !important; }
+  footer.wrap .subscribe { grid-column: 1 / -1; }
+  footer.wrap .legal { align-items: flex-start; flex-direction: column; gap: 12px; }
+  footer.wrap .legal-links { gap: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  footer.wrap .social b,
+  footer.wrap .social .circleicon,
+  footer.wrap .links a,
+  footer.wrap .subscribe button,
+  footer.wrap .legal-links span { transition: none; }
+}

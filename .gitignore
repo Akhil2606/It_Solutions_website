@@ -1,0 +1,9 @@
+# Python environment
+backend/.venv/
+
+# Environment variables and secrets
+backend/.env
+
+# Python cache
+__pycache__/
+*.py[cod]
