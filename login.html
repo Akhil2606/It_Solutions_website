@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -275,12 +275,6 @@
             box-shadow: 0 10px 22px rgba(37, 99, 235, .25);
         }
 
-        .submit-button:disabled {
-            cursor: not-allowed;
-            opacity: .7;
-            transform: none;
-        }
-
         .message {
             min-height: 22px;
             margin-top: 14px;
@@ -358,6 +352,7 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
+
             *,
             *::before,
             *::after {
@@ -397,25 +392,21 @@
             </div>
 
             <div class="tabs" role="tablist" aria-label="Account access">
-                <button class="tab active" id="signInTab" type="button"
-                        role="tab" aria-selected="true">Sign In</button>
-                <button class="tab" id="signUpTab" type="button"
-                        role="tab" aria-selected="false">Sign Up</button>
+                <button class="tab active" id="signInTab" type="button" role="tab" aria-selected="true">Sign In</button>
+                <button class="tab" id="signUpTab" type="button" role="tab" aria-selected="false">Sign Up</button>
             </div>
 
             <form id="authForm">
                 <div class="field" id="usernameField" hidden>
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username"
-                           placeholder="Choose a username"
-                           autocomplete="username" minlength="3" maxlength="40">
+                    <input type="text" id="username" name="username" placeholder="Choose a username"
+                        autocomplete="username" minlength="3" maxlength="40">
                 </div>
 
                 <div class="field">
                     <label for="email">Email address</label>
-                    <input type="email" id="email" name="email"
-                           placeholder="you@example.com"
-                           autocomplete="email" required>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email"
+                        required>
                 </div>
 
                 <div class="field">
@@ -423,27 +414,19 @@
                         <label for="password">Password</label>
                         <a href="#" id="forgotPassword">Forgot password?</a>
                     </div>
-                    <input type="password" id="password" name="password"
-                           placeholder="Enter your password"
-                           autocomplete="current-password"
-                           minlength="8" maxlength="128" required>
+                    <input type="password" id="password" name="password" placeholder="Enter your password"
+                        autocomplete="current-password" minlength="4" maxlength="128" required>
                 </div>
 
                 <div class="field" id="confirmPasswordField" hidden>
                     <label for="confirmPassword">Confirm password</label>
-                    <input type="password" id="confirmPassword"
-                           name="confirmPassword"
-                           placeholder="Re-enter your password"
-                           autocomplete="new-password"
-                           minlength="8" maxlength="128">
+                    <input type="password" id="confirmPassword" name="confirmPassword"
+                        placeholder="Re-enter your password" autocomplete="new-password" minlength="4" maxlength="128">
                 </div>
 
-                <button class="submit-button" id="submitButton" type="submit">
-                    Sign In to Your Account
-                </button>
+                <button class="submit-button" id="submitButton" type="submit">Sign In to Your Account</button>
 
-                <p class="message" id="message" role="status"
-                   aria-live="polite"></p>
+                <p class="message" id="message" role="status" aria-live="polite"></p>
             </form>
 
             <a class="back-link" href="index.html">
@@ -461,13 +444,13 @@
         const confirmPasswordField = document.getElementById("confirmPasswordField");
         const confirmPasswordInput = document.getElementById("confirmPassword");
         const passwordInput = document.getElementById("password");
+        const emailInput = document.getElementById("email");
         const forgotPassword = document.getElementById("forgotPassword");
         const formTitle = document.getElementById("formTitle");
         const formSubtitle = document.getElementById("formSubtitle");
         const submitButton = document.getElementById("submitButton");
         const message = document.getElementById("message");
 
-        const API_BASE_URL = "http://127.0.0.1:8000";
         let currentMode = "signin";
 
         function setMode(mode) {
@@ -493,9 +476,7 @@
                 ? "Create your STACKLY account to get started."
                 : "Enter your details to sign in to your account.";
 
-            submitButton.textContent = isSignUp
-                ? "Create Account"
-                : "Sign In to Your Account";
+            submitButton.textContent = isSignUp ? "Create Account" : "Sign In to Your Account";
 
             message.textContent = "";
             message.style.color = "#64748b";
@@ -507,87 +488,73 @@
         forgotPassword.addEventListener("click", (event) => {
             event.preventDefault();
             message.style.color = "#64748b";
-            message.textContent = "Password recovery is not available yet. Please contact STACKLY support.";
+            message.textContent = "Demo mode: Password recovery is not available.";
         });
 
-        authForm.addEventListener("submit", async (event) => {
+        authForm.addEventListener("submit", (event) => {
             event.preventDefault();
 
+            const email = emailInput.value.trim().toLowerCase();
+            const password = passwordInput.value;
             const isSignUp = currentMode === "signup";
 
-            if (isSignUp && passwordInput.value !== confirmPasswordInput.value) {
-                message.style.color = "#dc2626";
-                message.textContent = "Passwords do not match. Please try again.";
-                confirmPasswordInput.focus();
+            if (isSignUp) {
+                const username = usernameInput.value.trim();
+
+                if (password !== confirmPasswordInput.value) {
+                    message.style.color = "#dc2626";
+                    message.textContent = "Passwords do not match. Please try again.";
+                    confirmPasswordInput.focus();
+                    return;
+                }
+
+                const users = JSON.parse(localStorage.getItem("stacklyDemoUsers") || "{}");
+
+                if (users[email]) {
+                    message.style.color = "#dc2626";
+                    message.textContent = "An account with this email already exists. Please sign in.";
+                    return;
+                }
+
+                users[email] = {
+                    username: username,
+                    password: password
+                };
+
+                localStorage.setItem("stacklyDemoUsers", JSON.stringify(users));
+
+                message.style.color = "#15803d";
+                message.textContent = "Demo account created successfully. Please sign in.";
+
+                authForm.reset();
+                setMode("signin");
+                emailInput.value = email;
                 return;
             }
 
-            const payload = {
-                email: document.getElementById("email").value.trim(),
-                password: passwordInput.value
-            };
+            const users = JSON.parse(localStorage.getItem("stacklyDemoUsers") || "{}");
+            const user = users[email];
 
-            if (isSignUp) {
-                payload.username = usernameInput.value.trim();
+            if (!user || user.password !== password) {
+                message.style.color = "#dc2626";
+                message.textContent = "Invalid email or password. Please sign up first.";
+                return;
             }
+
+            localStorage.setItem("stacklyToken", "demo-session");
+            localStorage.setItem("stacklyUsername", user.username);
+            localStorage.setItem("stacklyEmail", email);
+
+            message.style.color = "#15803d";
+            message.textContent = "Login successful. Redirecting...";
 
             submitButton.disabled = true;
-            submitButton.textContent = isSignUp ? "Creating account..." : "Signing in...";
-            message.style.color = "#64748b";
-            message.textContent = "Please wait...";
 
-            try {
-                const response = await fetch(
-                    `${API_BASE_URL}/auth/${isSignUp ? "register" : "login"}`,
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(payload)
-                    }
-                );
-
-                const result = await response.json();
-
-                if (!response.ok) {
-                    const detail = result.detail;
-
-                    throw new Error(
-                        Array.isArray(detail)
-                            ? detail.map((item) => item.msg).join(", ")
-                            : (detail || "Authentication failed. Please try again.")
-                    );
-                }
-
-                localStorage.setItem("stacklyToken", result.access_token);
-                localStorage.setItem("stacklyUsername", result.username);
-                localStorage.setItem("stacklyEmail", result.email);
-
-                message.style.color = "#15803d";
-                message.textContent = isSignUp
-                    ? "Account created successfully. Redirecting..."
-                    : "Login successful. Redirecting...";
-
-                window.setTimeout(() => {
-                    window.location.href = "index.html";
-                }, 700);
-            } catch (error) {
-                message.style.color = "#dc2626";
-
-                if (error instanceof TypeError) {
-                    message.textContent =
-                        "Cannot connect to the server. Make sure FastAPI is running and CORS is configured.";
-                } else {
-                    message.textContent = error.message;
-                }
-            } finally {
-                submitButton.disabled = false;
-                submitButton.textContent = isSignUp
-                    ? "Create Account"
-                    : "Sign In to Your Account";
-            }
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 700);
         });
     </script>
 </body>
+
 </html>
