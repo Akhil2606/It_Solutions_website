@@ -269,7 +269,7 @@
       <div class="cta-copy">
         <h2>Our any information</h2>
         <p>Let's find the right IT support for your business</p>
-        <a href="mailto:hello@stacklyit.com" class="contact">Contact Us <span>➜</span></a>
+        <a href="enquiry.html" class="contact">Contact Us <span>➜</span></a>
       </div>
     </section>
   </main>
@@ -288,13 +288,20 @@
         <h3>Quick links</h3>
         <a href="#home">Home</a>
         <a href="services.html">Services</a>
-        <a href="#contact">Enquiry</a>
-        <a href="#contact">Contact Us</a>
+        <a href="enquiry.html">Enquiry</a>
+        <a href="enquiry.html">Contact Us</a>
       </div>
-      <form class="subscribe" onsubmit="event.preventDefault()">
-        <h3>Your email address</h3>
-        <input type="email" placeholder="Enter Your Email" aria-label="Your email address">
-        <button type="submit">Subscribe</button>
+      <form class="subscribe" id="subscribeForm">
+          <h3>Your email address</h3>
+          <input
+              type="email"
+              id="subscribeEmail"
+              placeholder="Enter Your Email"
+              aria-label="Your email address"
+              required
+          >
+          <button type="submit">Subscribe</button>
+          <p id="subscribeMessage" role="status" aria-live="polite"></p>
       </form>
     </div>
     <div class="legal">
@@ -303,44 +310,72 @@
     </div>
   </footer>
 
-  <script>
+  
+<script>
     (() => {
-      const header = document.querySelector(".home-header");
-      const updateHeader = () => header.classList.toggle("scrolled", window.scrollY > 40);
+        const header = document.querySelector(".home-header");
 
-      updateHeader();
-      window.addEventListener("scroll", updateHeader, { passive: true });
+        const updateHeader = () => {
+            header.classList.toggle("scrolled", window.scrollY > 40);
+        };
 
-      const accountActions = document.getElementById("accountActions");
-      const username = localStorage.getItem("stacklyUsername");
-      const token = localStorage.getItem("stacklyToken");
+        updateHeader();
 
-      if (username && token) {
-        accountActions.innerHTML = `
-          <span class="account-username" title="Signed in as ${escapeHtml(username)}">
-            ${escapeHtml(username)}
-          </span>
-          <button type="button" class="logout-button" id="logoutButton">Logout</button>
-        `;
+        window.addEventListener("scroll", updateHeader, { passive: true });
 
-        document.getElementById("logoutButton").addEventListener("click", () => {
-          localStorage.removeItem("stacklyToken");
-          localStorage.removeItem("stacklyUsername");
-          localStorage.removeItem("stacklyEmail");
-          window.location.reload();
+        // SUBSCRIPTION FORM
+        const subscribeForm = document.getElementById("subscribeForm");
+        const subscribeEmail = document.getElementById("subscribeEmail");
+        const subscribeMessage = document.getElementById("subscribeMessage");
+
+        subscribeForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const email = subscribeEmail.value.trim();
+
+            if (!email) {
+                alert("Please enter your email address.");
+                return;
+            }
+
+            alert("Subscribed successfully!");
+
+            subscribeForm.reset();
         });
-      }
 
-      function escapeHtml(value) {
-        return String(value).replace(/[&<>"']/g, character => ({
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#39;"
-        })[character]);
-      }
+        // ACCOUNT LOGIN AND LOGOUT
+        const accountActions = document.getElementById("accountActions");
+        const username = localStorage.getItem("stacklyUsername");
+        const token = localStorage.getItem("stacklyToken");
+
+        if (username && token) {
+            accountActions.innerHTML = `
+                <span class="account-username" title="Signed in as ${escapeHtml(username)}">
+                    ${escapeHtml(username)}
+                </span>
+                <button type="button" class="logout-button" id="logoutButton">
+                    Logout
+                </button>
+            `;
+
+            document.getElementById("logoutButton").addEventListener("click", () => {
+                localStorage.removeItem("stacklyToken");
+                localStorage.removeItem("stacklyUsername");
+                localStorage.removeItem("stacklyEmail");
+
+                window.location.reload();
+            });
+        }
+
+        function escapeHtml(value) {
+            return String(value).replace(/[&<>"']/g, character => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            })[character]);
+        }
     })();
-  </script>
+</script>
 </body>
-</html>
