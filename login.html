@@ -459,6 +459,7 @@
 
             signInTab.classList.toggle("active", !isSignUp);
             signUpTab.classList.toggle("active", isSignUp);
+
             signInTab.setAttribute("aria-selected", String(!isSignUp));
             signUpTab.setAttribute("aria-selected", String(isSignUp));
 
@@ -472,11 +473,14 @@
             passwordInput.autocomplete = isSignUp ? "new-password" : "current-password";
 
             formTitle.textContent = isSignUp ? "Create your account" : "Welcome back";
+
             formSubtitle.textContent = isSignUp
                 ? "Create your STACKLY account to get started."
                 : "Enter your details to sign in to your account.";
 
-            submitButton.textContent = isSignUp ? "Create Account" : "Sign In to Your Account";
+            submitButton.textContent = isSignUp
+                ? "Create Account"
+                : "Sign In to Your Account";
 
             message.textContent = "";
             message.style.color = "#64748b";
@@ -508,23 +512,8 @@
                     return;
                 }
 
-                const users = JSON.parse(localStorage.getItem("stacklyDemoUsers") || "{}");
-
-                if (users[email]) {
-                    message.style.color = "#dc2626";
-                    message.textContent = "An account with this email already exists. Please sign in.";
-                    return;
-                }
-
-                users[email] = {
-                    username: username,
-                    password: password
-                };
-
-                localStorage.setItem("stacklyDemoUsers", JSON.stringify(users));
-
                 message.style.color = "#15803d";
-                message.textContent = "Demo account created successfully. Please sign in.";
+                message.textContent = "Demo account created successfully! You can now sign in.";
 
                 authForm.reset();
                 setMode("signin");
@@ -532,21 +521,15 @@
                 return;
             }
 
-            const users = JSON.parse(localStorage.getItem("stacklyDemoUsers") || "{}");
-            const user = users[email];
-
-            if (!user || user.password !== password) {
-                message.style.color = "#dc2626";
-                message.textContent = "Invalid email or password. Please sign up first.";
-                return;
-            }
+            // Demo login: no registration or password verification required.
+            const username = email.split("@")[0];
 
             localStorage.setItem("stacklyToken", "demo-session");
-            localStorage.setItem("stacklyUsername", user.username);
+            localStorage.setItem("stacklyUsername", username);
             localStorage.setItem("stacklyEmail", email);
 
             message.style.color = "#15803d";
-            message.textContent = "Login successful. Redirecting...";
+            message.textContent = "Login successful! Redirecting...";
 
             submitButton.disabled = true;
 
